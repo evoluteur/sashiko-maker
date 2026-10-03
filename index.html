@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-063933E3C2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-063933E3C2");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sashiko Maker: Japanese Running-Stitch Patterns</title>
+    <meta
+      name="description"
+      content="Sashiko Maker: Japanese running-stitch patterns such as seigaiha waves, asanoha and shippo, stitched out line by line. Change the stitches and the cloth, and download it as SVG or PNG."
+    />
+    <meta
+      name="keywords"
+      content="sashiko, sashiko patterns, seigaiha, asanoha, shippo, kikko, hitomezashi, japanese embroidery, running stitch, boro, indigo, visible mending"
+    />
+    <meta name="author" content="Olivier Giulieri" />
+    <link rel="canonical" href="https://evoluteur.github.io/sashiko-maker/" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="theme-color" content="#1a212d" />
+    <meta property="og:site_name" content="Evoluteur" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sashiko Maker" />
+    <meta
+      property="og:description"
+      content="Japanese running-stitch patterns such as seigaiha, asanoha and shippo, stitched out line by line."
+    />
+    <meta property="og:url" content="https://evoluteur.github.io/sashiko-maker/" />
+    <meta
+      property="og:image"
+      content="https://evoluteur.github.io/sashiko-maker/sashiko-maker.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Overpass"
+    />
+    <link id="omg-core-css" rel="stylesheet" href="css/core.css" />
+    <script>
+      // Themes (dark, light, evol-blue) are copies of omg-themes (npm run sync:themes);
+      // set OMG_THEMES_BASE to "https://evoluteur.github.io/omg-themes/" to link the hosted ones instead.
+      window.OMG_THEMES_BASE = "";
+      window.OMG_DEFAULT_THEME = "dark";
+      (function () {
+        var t = window.OMG_DEFAULT_THEME;
+        try {
+          t = localStorage.getItem("omg-theme") || t;
+        } catch (e) {}
+        if (t !== "dark" && t !== "light" && t !== "evol-blue")
+          t = window.OMG_DEFAULT_THEME;
+        document.documentElement.setAttribute("data-theme", t);
+        // written here (not in the markup) so the saved theme loads before first paint
+        document.write(
+          '<link id="omg-theme-css" rel="stylesheet" href="' +
+            window.OMG_THEMES_BASE +
+            "css/themes/" +
+            t +
+            "/" +
+            t +
+            '.css" />',
+        );
+      })();
+    </script>
+    <link id="omg-density-css" rel="stylesheet" href="css/densities.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/sashiko.css" />
+
+    <script src="js/omg.js"></script>
+    <script src="js/sashiko.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        addEventListener("load", () =>
+          navigator.serviceWorker.register("sw.js"),
+        );
+      }
+    </script>
+  </head>
+
+  <body
+    onload="
+      setupPage('home');
+      initSashiko();
+    "
+    id="omg-body"
+  >
+    <div id="omg-header">
+      <h1>Sashiko Maker</h1>
+      <div id="omg-header-tools">
+        <div id="omg-theme-picker"></div>
+        <a
+          id="omg-github"
+          href="https://github.com/evoluteur/sashiko-maker"
+          target="_blank"
+          rel="noopener"
+          title="Sashiko Maker on GitHub"
+          aria-label="Sashiko Maker on GitHub"
+          ><svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+            /></svg
+        ></a
+        >
+      </div>
+    </div>
+    <noscript
+      ><p class="tagline">
+        Sashiko Maker runs on JavaScript. Enable it to use the page.
+      </p></noscript
+    >
+    <h2>Little stabs of white thread on indigo</h2>
+    <div class="content">
+      <p class="tagline">
+        Sashiko (“little stabs”) began in the farming and fishing villages of
+        northern Japan, where women stitched layers of worn indigo cotton
+        together with white thread, to make them warmer and last longer. The
+        running stitches drew waves, leaves, shells and stars. Pick a pattern,
+        and watch it being stitched, one line at a time, the way it is done by
+        hand.
+      </p>
+
+      <div class="layout">
+        <div class="stage">
+          <div id="sashiko" class="canvas-box" aria-label="Sashiko"></div>
+          <p class="note" id="stitch-note" aria-live="polite"></p>
+          <div class="panel under">
+            <div class="btns">
+              <button type="button" id="stitch">Stitch it</button>
+              <button type="button" id="new" class="ghost" hidden>
+                New pattern
+              </button>
+            </div>
+            <div class="ctl" style="margin: 14px 0 0">
+              <label for="speed">Stitching pace</label
+              ><span class="val" id="speed-val"></span>
+              <input type="range" id="speed" min="1" max="10" step="1" />
+            </div>
+          </div>
+          <div class="panel under">
+            <h3>Save</h3>
+            <div class="btns">
+              <button type="button" id="export-png">Download PNG</button>
+              <button type="button" id="export-svg" class="ghost">
+                Download SVG
+              </button>
+            </div>
+            <p class="note" style="margin: 10px 0 0">
+              The address of the page keeps this design, to share it.
+            </p>
+          </div>
+        </div>
+
+        <div class="side">
+          <div class="panel">
+            <h3>Pattern</h3>
+            <div
+              class="chips patterns"
+              id="pattern-chips"
+              role="group"
+              aria-label="Pattern"
+            ></div>
+            <p class="note" id="pattern-about"></p>
+            <div class="ctl">
+              <label for="size">Pattern size</label
+              ><span class="val" id="size-val"></span>
+              <input type="range" id="size" min="30" max="120" step="2" />
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Stitches</h3>
+            <div class="ctl">
+              <label for="stitch">Stitch length</label
+              ><span class="val" id="stitch-val"></span>
+              <input type="range" id="stitch" min="4" max="18" step="0.5" />
+            </div>
+            <div class="ctl">
+              <label for="gap">Gap (thread under the cloth)</label
+              ><span class="val" id="gap-val"></span>
+              <input type="range" id="gap" min="25" max="110" step="5" />
+            </div>
+            <div class="ctl">
+              <label for="width">Thread thickness</label
+              ><span class="val" id="width-val"></span>
+              <input type="range" id="width" min="1.2" max="5" step="0.1" />
+            </div>
+            <label class="opt"
+              ><input type="checkbox" id="o-wobble" /> Stitched by hand
+              (a little uneven)</label
+            >
+          </div>
+
+          <div class="panel">
+            <h3>Cloth</h3>
+            <div
+              class="chips"
+              id="cloth-chips"
+              role="group"
+              aria-label="Cloth and thread"
+            ></div>
+            <label class="opt"
+              ><input type="checkbox" id="o-chalk" /> Chalk guide lines</label
+            >
+            <label class="opt"
+              ><input type="checkbox" id="o-texture" /> Weave texture</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+      <p class="note small">
+        * Thread used for a 40 cm (16 in) square of cloth, front and back.
+      </p>
+
+      <div class="layout info">
+        <div class="side wide">
+          <div class="panel">
+            <h3>Stitching by hand</h3>
+            <p class="note">
+              The cloth is first marked with chalk, then stitched one family of
+              lines at a time: all the horizontal lines, then all the
+              diagonals, and so on, loading several stitches on the long needle
+              before pulling the thread through. Stitches are a little longer
+              on the front than the gaps where the thread runs under the cloth,
+              about five to seven of them per inch.
+            </p>
+          </div>
+        </div>
+        <div class="side wide">
+          <div class="panel">
+            <h3>Corners and crossings</h3>
+            <p class="note">
+              A good sashiko corner always has a stitch going right into it, so
+              the shape stays sharp. Here, the stitches are fitted to every
+              straight run of a line, so each run starts and ends with a full
+              stitch. At the turns, a small loop of slack is left on the back
+              so the cloth doesn't pucker when it is washed.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          The code of this page is
+          <a href="https://github.com/evoluteur/sashiko-maker">Open source</a>
+          with MIT license.
+        </p>
+        <p>
+          Had fun browsing the app?
+          <a href="https://github.com/sponsors/evoluteur"
+            >Buy me a coffee by becoming a sponsor</a
+          >.
+        </p>
+        <p>
+          You may also like
+          <a href="https://evoluteur.github.io/kumiko-maker/">Kumiko Maker</a>,
+          <a href="https://evoluteur.github.io/kolam-maker/">Kolam Maker</a>,
+          <a href="https://evoluteur.github.io/celtic-knot-maker/">Celtic Knot Maker</a>,
+          and
+          <a href="https://evoluteur.github.io/islamic-patterns/">Islamic Patterns</a>. See them all on
+          <a href="https://evoluteur.github.io/esoterica.html">Esoterica</a>.
+        </p>
+        <p class="copyright">
+          &#169; 2026
+          <a href="https://evoluteur.github.io/">Olivier Giulieri</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

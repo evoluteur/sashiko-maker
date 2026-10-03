@@ -1,0 +1,211 @@
+.config-pickers {
+  /* position: absolute;
+  right: 20px;
+  top: 20px; */
+  > div {
+    padding: 6px 0;
+  }
+}
+h1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.big-v-space {
+  display: block;
+  width: 200px;
+  height: 0;
+  margin-top: 90vh;
+}
+#omg-header,
+#omg-nav {
+  display: block;
+  position: sticky;
+  /* background: #0288d1 url("spirals.png"); */
+  background-color: inherit;
+  z-index: 100;
+}
+
+#omg-header {
+  /* position: relative; */
+  top: 0;
+}
+#omg-nav {
+  /* position: relative; */
+  top: 50px;
+  padding: 5px;
+  > a {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
+
+#config-pickers {
+  background-color: inherit;
+  /* position: fixed; */
+  top: 5px;
+  background-color: inherit;
+  > div {
+    display: inline-block;
+  }
+}
+#omg-theme-picker {
+  position: absolute;
+  /* position: sticky;
+  top: 45px;
+  right: 100px; */
+  top: 5px;
+  right: 5px;
+  /* background: inherit; */
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    color: currentColor;
+    opacity: 0.75;
+    &:hover {
+      opacity: 1;
+    }
+    &.selected {
+      opacity: 1;
+    }
+  }
+}
+
+#omg-density-picker {
+  /* position: sticky;
+  top: 5px;
+  right: 100px; */
+  background-color: inherit;
+  z-index: 200;
+  > a {
+    margin-right: 20px;
+    /* &.selected {
+      text-decoration: underline;
+    } */
+  }
+}
+
+.cab {
+  position: absolute;
+  transform: translateX(-600px);
+  z-index: 1001;
+  animation: cab-ride 10s infinite linear;
+}
+@keyframes cab-ride {
+  0%,
+  10% {
+    transform: translateX(-600px);
+  }
+  80%,
+  100% {
+    transform: translateX(calc(100vw + 600px));
+  }
+}
+
+/* feature cards, same look as the npm-pulse package cards
+   (see https://evoluteur.github.io/npm-pulse/) */
+.feature-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 20px 0;
+}
+.feature-card {
+  flex-grow: 1;
+  width: 260px;
+  max-width: 100%;
+  background-color: var(--card-bg);
+  border: 3px solid var(--card-border);
+  border-radius: 10px;
+  padding: 15px 20px 20px;
+}
+.feature-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--card-strong);
+  margin-bottom: 8px;
+}
+.feature-card p {
+  margin: 0;
+  color: var(--card-foot);
+}
+
+/* button variants for the demo section -- .btn-primary relies on the
+   theme's own base `button` styling, these two just override it */
+.btn-secondary {
+  background: transparent;
+  color: inherit;
+  border: 2px solid var(--card-border);
+  &:hover,
+  &:focus {
+    background: var(--card-bg);
+  }
+}
+.btn-default {
+  background: var(--card-bg);
+  color: var(--card-strong);
+  border: 1px solid var(--card-border);
+  &:hover,
+  &:focus {
+    opacity: 0.85;
+  }
+}
+
+.demo-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 20px;
+  > button {
+    margin: 0;
+  }
+}
+.demo-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+  margin: 0 0 30px;
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85em;
+  }
+  .demo-age {
+    width: 70px;
+  }
+  .demo-checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+.omg-table {
+  border-collapse: collapse;
+  width: 100%;
+  tr {
+    align-items: top;
+    border-top: solid 2px silver;
+    border-bottom: solid 2px silver;
+  }
+  th,
+  td {
+    padding: 5px 10px;
+    text-align: left;
+  }
+  th {
+    font-weight: bold;
+  }
+}

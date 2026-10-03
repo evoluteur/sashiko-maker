@@ -1,0 +1,32 @@
+/* Sashiko Maker */
+
+.content {
+  max-width: 1120px;
+}
+.panel.under {
+  margin-top: 6px;
+}
+.chips.patterns button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+.chips.patterns small {
+  font-size: 0.72em;
+  opacity: 0.75;
+}
+.jp {
+  opacity: 0.8;
+  font-weight: normal;
+}
+#pattern-about {
+  margin: 0 0 14px;
+}
+.note.small {
+  margin: -8px 0 20px;
+  font-size: 0.78em;
+}
+#needle {
+  pointer-events: none;
+}
