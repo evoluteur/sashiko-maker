@@ -16,6 +16,15 @@ Sashiko (“little stabs”) began in the farming and fishing villages of northe
 - **Cloth**: indigo, deep indigo, red thread, undyed cotton, persimmon or sumi black, with chalk guide lines and a weave texture.
 - **Save**: **Download PNG** (2000 pixels square) or **Download SVG**. The address of the page keeps the design, to share it.
 
+## Patterns
+
+Click a pattern to open it in the app.
+
+<table>
+<tr><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=seigaiha&u=72&s=9&g=55&c=indigo"><img src="img/seigaiha.png" width="200" alt="Seigaiha sashiko pattern"></a><br><b>Seigaiha</b> 青海波<br>Blue ocean waves</td><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=asanoha&u=72&s=9&g=55&c=indigo"><img src="img/asanoha.png" width="200" alt="Asanoha sashiko pattern"></a><br><b>Asanoha</b> 麻の葉<br>Hemp leaf</td><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=shippo&u=72&s=9&g=55&c=indigo"><img src="img/shippo.png" width="200" alt="Shippō sashiko pattern"></a><br><b>Shippō</b> 七宝<br>Seven treasures</td><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=kikko&u=72&s=9&g=55&c=indigo"><img src="img/kikko.png" width="200" alt="Kikkō sashiko pattern"></a><br><b>Kikkō</b> 亀甲<br>Tortoise shell</td></tr>
+<tr><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=yamagata&u=72&s=9&g=55&c=indigo"><img src="img/yamagata.png" width="200" alt="Yamagata sashiko pattern"></a><br><b>Yamagata</b> 山形<br>Mountains</td><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=higaki&u=72&s=9&g=55&c=indigo"><img src="img/higaki.png" width="200" alt="Higaki sashiko pattern"></a><br><b>Higaki</b> 檜垣<br>Cypress fence</td><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=kagome&u=72&s=9&g=55&c=indigo"><img src="img/kagome.png" width="200" alt="Kagome sashiko pattern"></a><br><b>Kagome</b> 籠目<br>Basket weave</td><td align="center"><a href="https://evoluteur.github.io/sashiko-maker/#p=hitomezashi&u=72&s=9&g=55&c=indigo&seed=7"><img src="img/hitomezashi.png" width="200" alt="Hitomezashi sashiko pattern"></a><br><b>Hitomezashi</b> 一目刺し<br>One-stitch</td></tr>
+</table>
+
 ## How it works
 
 Every pattern is a set of lines (straight, zigzag or curved) grouped in passes. The seigaiha fans are circles hidden wherever a fan of the next row covers them; shippō is made of waves of quarter circles; asanoha is a triangle grid with three spokes in every triangle, chained into zigzags. Each line is then cut into running stitches fitted to every straight run, so a stitch always ends right on a corner. In hitomezashi every stitch is one square long, and each row and column starts on a stitch or a gap at random.
