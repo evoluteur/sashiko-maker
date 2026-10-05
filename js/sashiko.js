@@ -689,7 +689,7 @@ function initSashiko() {
   chips("pattern-chips", PATTERNS, "pattern", update, (v) => `${v.name}<small>${v.en}</small>`);
   chips("cloth-chips", CLOTHS, "cloth", restyle);
   rangeCtl("size", "size", (v) => `${((v * 40) / (S - 2 * M)).toFixed(1)} cm`, update);
-  rangeCtl("stitch", "stitch", (v) => `${((v * 400) / (S - 2 * M)).toFixed(1)} mm`, update);
+  rangeCtl("stitch-len", "stitch", (v) => `${((v * 400) / (S - 2 * M)).toFixed(1)} mm`, update);
   rangeCtl("gap", "gap", (v) => `${v}%`, update);
   rangeCtl("width", "width", (v) => v.toFixed(1), restyle);
   rangeCtl("speed", "speed", (v) => v, () => {});
