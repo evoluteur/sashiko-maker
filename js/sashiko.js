@@ -67,6 +67,22 @@ const PATTERNS = {
     about:
       "The eyes of a woven bamboo basket: three sets of straight lines make hexagons ringed by six-pointed stars, a sign that was hung over doorways to keep evil away.",
   },
+  sayagata: {
+    name: "Sayagata",
+    jp: "紗綾形",
+    en: "Key fret",
+    passes: ["the key lines"],
+    about:
+      "Interlocking manji linked by long straight lines into an unbroken fret, stitched on the diagonal. It came to Japan on Ming silk (saya), and the never-ending line wishes for prosperity and long life.",
+  },
+  tatewaku: {
+    name: "Tatewaku",
+    jp: "立涌",
+    en: "Rising steam",
+    passes: ["the waves"],
+    about:
+      "Pairs of wavy lines that swell apart and pinch together, like steam rising from a kettle or clouds drifting up. Worn at court since the Heian period, a sign of good fortune on the rise.",
+  },
   hitomezashi: {
     name: "Hitomezashi",
     jp: "一目刺し",
@@ -74,7 +90,15 @@ const PATTERNS = {
     passes: ["the rows", "the columns"],
     random: true,
     about:
-      "Every stitch is exactly one square of the grid long, and each row and column starts either on a stitch or on a gap. Rows and columns alone build the staircase pattern. Try New pattern for another one.",
+      "Every stitch is exactly one square of the grid long, and each row and column starts either on a stitch or on a gap, following a short mirrored rhythm. Rows and columns alone build crosses, boxes and stepped diamonds. Try New pattern for another rhythm.",
+  },
+  kakinohana: {
+    name: "Kaki-no-hana",
+    jp: "柿の花",
+    en: "Persimmon flower",
+    passes: ["the rows", "the columns"],
+    about:
+      "The best-loved hitomezashi: rows and columns of one-square stitches, starting on a stitch or a gap in a fixed rhythm, so stepped diamonds bloom around small squares, the four-petaled flower of the persimmon tree.",
   },
 };
 
@@ -379,22 +403,82 @@ function kagome(u) {
   return [...family(0, d, 0, 0), ...family(Math.PI / 3, d, 0, 1), ...family((2 * Math.PI) / 3, d, d / 2, 2)];
 }
 
-function hitomezashi(u) {
+// one-stitch grid: start(k) says if row / column k starts on a stitch (0) or a gap (1)
+function oneStitch(u, start) {
   const a = u / 3, out = [];
-  const rand = rng(opts.seed);
-  const n = Math.ceil((HI - LO) / a);
+  const n = Math.floor((HI - LO) / a); // the grid stays inside the hem, so no line is clipped
   const a0 = LO + ((HI - LO) - n * a) / 2;
   for (const vertical of [false, true]) {
     for (let k = 1; k < n; k++) {
       const c = a0 + k * a;
       const pts = vertical ? [[c, a0], [c, a0 + n * a]] : [[a0, c], [a0 + n * a, c]];
-      out.push({ pts, pass: vertical ? 1 : 0, fixed: { len: a, start: rand() < 0.5 ? 0 : 1 } });
+      out.push({ pts, pass: vertical ? 1 : 0, fixed: { len: a, start: start(k, n) } });
     }
   }
   return out;
 }
 
-const MAKERS = { seigaiha, asanoha, shippo, kikko, yamagata, higaki, kagome, hitomezashi };
+function hitomezashi(u) {
+  // a random rhythm, 4, 6 or 8 lines long and mirrored, used for both rows and columns,
+  // so every new pattern is regular and symmetric, like the traditional ones
+  const rand = rng(opts.seed);
+  for (let i = 0; i < 8; i++) rand(); // the first numbers of a small seed are all tiny
+  const P = [4, 6, 8][Math.floor(rand() * 3)];
+  let half;
+  do half = Array.from({ length: P / 2 }, () => (rand() < 0.5 ? 0 : 1));
+  while (half.every((b) => b === half[0])); // all the same is just diagonal stairs
+  const unit = half.concat([...half].reverse());
+  return oneStitch(u, (k, n) => {
+    const d = k - Math.floor(n / 2);
+    return (unit[((d % P) + P) % P] + Math.abs(d)) % 2;
+  });
+}
+
+function kakinohana(u) {
+  // the same rhythm for rows and columns, centered so a flower sits in the middle
+  const seq = [0, 0, 1, 0, 1, 1, 0, 1];
+  return oneStitch(u, (k, n) => {
+    const m = -Math.floor(n / 2); // shift the rhythm, and the stitches with it
+    return (seq[(((k + m) % 8) + 8) % 8] + Math.abs(m)) % 2;
+  });
+}
+
+function sayagata(u) {
+  // manji on a square grid (unit g, one every 5 units), each arm: 1 out, 1 aside, 1 out,
+  // then 4 back along the side, where it meets the next manji. Drawn on the diagonal.
+  const g = u / 3, R = Math.SQRT1_2, C = S / 2;
+  const P = (x, y) => [C + (x - y) * g * R, C + (x + y) * g * R];
+  const arm = [[0, 0], [1, 0], [1, 1], [2, 1], [2, -3]];
+  const n = Math.ceil(S / (5 * g)) + 2, segs = [];
+  for (let i = -n; i <= n; i++)
+    for (let j = -n; j <= n; j++) {
+      const cx = 5 * i, cy = 5 * j;
+      for (let r = 0; r < 4; r++) {
+        const pts = arm.map(([x, y]) => {
+          for (let k = 0; k < r; k++) [x, y] = [-y, x];
+          return P(cx + x, cy + y);
+        });
+        const mx = pts.reduce((s, p) => s + p[0], 0) / pts.length, my = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+        if (mx < -2 * u || mx > S + 2 * u || my < -2 * u || my > S + 2 * u) continue;
+        for (let k = 0; k < pts.length - 1; k++) segs.push([pts[k], pts[k + 1]]);
+      }
+    }
+  return chain(segs, 0);
+}
+
+function tatewaku(u) {
+  // neighbor lines wave in opposite directions, swelling apart and pinching together
+  const sp = u / 2, A = sp * 0.42, per = u * 1.5, C = S / 2, out = [];
+  const n = Math.ceil(S / sp / 2) + 2;
+  for (let i = -n; i <= n; i++) {
+    const x0 = C + i * sp + sp / 2, s = Math.abs(i) % 2 ? -1 : 1, pts = [];
+    for (let y = -per; y <= S + per; y += 3) pts.push([x0 + s * A * Math.cos((2 * Math.PI * (y - C)) / per), y]);
+    out.push({ pts, pass: 0 });
+  }
+  return out;
+}
+
+const MAKERS = { seigaiha, asanoha, shippo, kikko, yamagata, higaki, kagome, sayagata, tatewaku, hitomezashi, kakinohana };
 
 // ---------------------------------------------------------------- stitches
 
