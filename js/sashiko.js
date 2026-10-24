@@ -470,8 +470,9 @@ function sayagata(u) {
 }
 
 function tatewaku(u) {
-  // neighbor lines wave in opposite directions, swelling apart and pinching together
-  const sp = u / 2, A = sp * 0.42, per = u * 1.5, C = S / 2, out = [];
+  // neighbor lines wave in opposite directions, swelling apart and pinching together;
+  // tall waves so the swells read as steam rising, not as a diamond mesh
+  const sp = u / 2, A = sp * 0.45, per = u * 3, C = S / 2, out = [];
   const n = Math.ceil(S / sp / 2) + 2;
   for (let i = -n; i <= n; i++) {
     const x0 = C + i * sp + sp / 2, s = Math.abs(i) % 2 ? -1 : 1, pts = [];
