@@ -1,4 +1,4 @@
-const CACHE = "sashiko-maker-v3";
+const CACHE = "sashiko-maker-v4";
 const ASSETS = [
   "./",
   "css/common.css",

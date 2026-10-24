@@ -335,12 +335,15 @@ function shippo(u) {
   const a = u, out = [];
   const C = S / 2, n = Math.ceil(S / a / 2) + 2;
   for (const vertical of [false, true]) {
+    // the vertical waves are shifted half a cell both ways so that their
+    // arcs meet the horizontal ones on the same circles
+    const dy = vertical ? 0 : 0.5, dx = vertical ? -0.5 : 0;
     for (let k = -n; k < n; k++) {
-      const y0 = C + (k + 0.5) * a;
+      const y0 = C + (k + dy) * a;
       for (const phase of [0, 1]) {
         let pts = [];
         for (let i = -n; i < n; i++) {
-          const x0 = C + i * a, cx = x0 + a / 2;
+          const x0 = C + (i + dx) * a, cx = x0 + a / 2;
           const up = (i + phase) % 2 === 0;
           const seg = up
             ? arc(cx, y0 + a / 2, a / Math.SQRT2, (-3 * Math.PI) / 4, -Math.PI / 4, 2)
