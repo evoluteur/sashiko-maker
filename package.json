@@ -1,6 +1,6 @@
 {
   "name": "sashiko-maker",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Japanese running-stitch patterns such as seigaiha waves, asanoha and shippo, stitched out line by line. Change the stitches and the cloth, and download it as SVG or PNG.",
   "repository": "github:evoluteur/sashiko-maker",
   "homepage": "https://evoluteur.github.io/sashiko-maker/",
