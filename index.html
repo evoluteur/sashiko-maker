@@ -81,6 +81,14 @@
     <script src="js/omg.js"></script>
     <script src="js/sashiko.js"></script>
     <script>
+      // Start as soon as the page is parsed: the load event also waits for
+      // Google Analytics, the web font and the theme background images.
+      document.addEventListener("DOMContentLoaded", () => {
+        try {
+          setupPage("home");
+        } catch (e) {} // omg.js uses localStorage unguarded (throws when storage is blocked)
+        initSashiko();
+      });
       if ("serviceWorker" in navigator) {
         addEventListener("load", () =>
           navigator.serviceWorker.register("sw.js"),
@@ -89,13 +97,7 @@
     </script>
   </head>
 
-  <body
-    onload="
-      setupPage('home');
-      initSashiko();
-    "
-    id="omg-body" class="medium"
-  >
+  <body id="omg-body" class="medium">
     <div id="omg-header">
       <h1>Sashiko Maker</h1>
       <div id="omg-header-tools">

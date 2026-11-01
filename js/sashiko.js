@@ -633,7 +633,7 @@ function stitchIt() {
   const needle = $e("sashiko").querySelector("#needle");
   const P = PATTERNS[opts.pattern];
   const note = $e("stitch-note");
-  let li = 0, si = 0, acc = 0, last = performance.now(), path = null, pass = -1;
+  let li = 0, si = 0, acc = 0, last = performance.now(), path = null, pass = -1, d = "";
   $e("stitch").textContent = "Stop";
   anim = {};
   const step = (now) => {
@@ -645,6 +645,7 @@ function stitchIt() {
       if (!path) {
         path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         g.appendChild(path);
+        d = "";
         if (lines[li].pass !== pass) {
           pass = lines[li].pass;
           note.textContent = `Pass ${pass + 1} of ${P.passes.length}: ${P.passes[pass]}.`;
@@ -652,7 +653,9 @@ function stitchIt() {
       }
       si++;
       const sts = stitches[li];
-      path.setAttribute("d", pathD(sts.slice(0, si)));
+      // append the new stitch instead of rebuilding the whole line's path
+      if (sts[si - 1]) d += pathD([sts[si - 1]]);
+      path.setAttribute("d", d);
       const tip = sts[Math.max(0, si - 1)];
       if (tip) {
         const q = tip[tip.length - 1];
@@ -683,7 +686,9 @@ function writeUrl() {
   q.set("g", opts.gap);
   q.set("c", opts.cloth);
   if (PATTERNS[opts.pattern].random) q.set("seed", opts.seed);
-  history.replaceState(null, "", "#" + q.toString());
+  try {
+    history.replaceState(null, "", "#" + q.toString());
+  } catch (e) {} // Safari: SecurityError past 100 calls in 30 s
 }
 function readUrl() {
   const q = new URLSearchParams(location.hash.slice(1));
@@ -694,9 +699,10 @@ function readUrl() {
   };
   if (PATTERNS[q.get("p")]) opts.pattern = q.get("p");
   if (CLOTHS[q.get("c")]) opts.cloth = q.get("c");
+  // same ranges as the sliders in index.html
   opts.size = num("u", 30, 120, opts.size);
-  opts.stitch = num("s", 3, 20, opts.stitch);
-  opts.gap = num("g", 20, 120, opts.gap);
+  opts.stitch = num("s", 4, 18, opts.stitch);
+  opts.gap = num("g", 25, 110, opts.gap);
   opts.seed = num("seed", 1, 2147483646, opts.seed);
 }
 const LS = "sashiko-maker";
@@ -708,7 +714,10 @@ function save() {
 }
 function load() {
   try {
-    Object.assign(opts, JSON.parse(localStorage.getItem(LS)) || {});
+    const saved = JSON.parse(localStorage.getItem(LS)) || {};
+    // only take back the settings save() writes, with the right types
+    for (const k of ["width", "speed"]) if (typeof saved[k] === "number" && isFinite(saved[k])) opts[k] = saved[k];
+    for (const k of ["chalk", "texture", "wobble"]) if (typeof saved[k] === "boolean") opts[k] = saved[k];
   } catch (e) {}
 }
 
@@ -738,27 +747,40 @@ function rangeCtl(id, key, fmt, onChange) {
     onChange();
   });
 }
-function update() {
-  generate();
-  render();
-  writeUrl();
-  save();
+// Sliders fire "input" many times per frame while dragging: regenerate at
+// most once per frame, and write the address and storage once it settles.
+let pending = null, persistTimer = 0;
+function schedule(regen) {
+  if (pending) {
+    pending.regen ||= regen;
+    return;
+  }
+  pending = { regen };
+  requestAnimationFrame(() => {
+    const { regen } = pending;
+    pending = null;
+    if (regen) generate();
+    render();
+  });
+  clearTimeout(persistTimer);
+  persistTimer = setTimeout(() => {
+    writeUrl();
+    save();
+  }, 250);
 }
-function restyle() {
-  render();
-  writeUrl();
-  save();
-}
+const update = () => schedule(true);
+const restyle = () => schedule(false);
 
-function download(name, href) {
+function download(name, blob) {
   const a = document.createElement("a");
   a.download = name;
-  a.href = href;
+  a.href = URL.createObjectURL(blob);
   a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000); // free the file
 }
 const fileName = () => "sashiko-" + opts.pattern;
 function saveSvg() {
-  download(fileName() + ".svg", URL.createObjectURL(new Blob([svgMarkup(true)], { type: "image/svg+xml" })));
+  download(fileName() + ".svg", new Blob([svgMarkup(true)], { type: "image/svg+xml" }));
 }
 function savePng() {
   const img = new Image();
@@ -766,7 +788,8 @@ function savePng() {
     const c = document.createElement("canvas");
     c.width = c.height = 2000;
     c.getContext("2d").drawImage(img, 0, 0, 2000, 2000);
-    download(fileName() + ".png", c.toDataURL("image/png"));
+    // toBlob avoids building a multi-MB base64 string on the main thread
+    c.toBlob((blob) => blob && download(fileName() + ".png", blob), "image/png");
   };
   img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgMarkup(true));
 }
@@ -795,5 +818,7 @@ function initSashiko() {
   });
   $e("export-png").addEventListener("click", savePng);
   $e("export-svg").addEventListener("click", saveSvg);
-  update();
+  generate();
+  render();
+  writeUrl();
 }
